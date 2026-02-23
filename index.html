@@ -342,8 +342,12 @@
         </div>
     </div>
 
-    <script>// 1. Typewriter Effect
-        const text = "警告：您正在访问受限的 MCT_APIs 核心接口节点。\n\n未授权访问将被记录并追踪。\n\n>>> 您不应该出现在这里。";
+    <script>
+        // 1. Typewriter Effect
+        // 使用 Unicode 编码彻底杜绝乱码问题
+        const text = "\u8b66\u544a\uff1a\u60a8\u6b63\u5728\u8bbf\u95ee\u53d7\u9650\u7684 MCT_APIs \u6838\u5fc3\u63a5\u53e3\u8282\u70b9\u3002\n\n\u672a\u6388\u6743\u8bbf\u95ee\u5c06\u88ab\u8bb0\u5f55\u5e76\u8ffd\u8e2a\u3002\n\n>>> \u60a8\u4e0d\u5e94\u8be5\u51fa\u73b0\u5728\u8fd9\u91cc\u3002";
+        // 翻译: 警告：您正在访问受限的 MCT_APIs 核心接口节点。\n\n未授权访问将被记录并追踪。\n\n>>> 您不应该出现在这里。
+
         const typeWriterElement = document.getElementById('typewriter-text');
         let i = 0;
 
@@ -482,6 +486,7 @@
             const y = (window.innerHeight - e.pageY * 2) / 100;
 
             box.style.transform = `perspective(1000px) rotateX(${y}deg) rotateY(${x}deg)`;
-        });</script>
+        });
+    </script>
 </body>
 </html>
