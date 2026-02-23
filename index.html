@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCT_APIs - RESTRICTED ACCESS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-cyan: #00f3ff;
+            --neon-red: #ff003c;
+            --bg-dark: #050505;
+            --glass: rgba(0, 243, 255, 0.05);
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--neon-cyan);
+            font-family: 'Share Tech Mono', monospace;
+            overflow: hidden;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Scanline Effect */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient( to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.2) );
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 50;
+        }
+
+        /* CRT Flicker Animation */
+        @keyframes flicker {
+            0% {
+                opacity: 0.97;
+            }
+
+            5% {
+                opacity: 0.95;
+            }
+
+            10% {
+                opacity: 0.9;
+            }
+
+            15% {
+                opacity: 0.95;
+            }
+
+            20% {
+                opacity: 0.99;
+            }
+
+            50% {
+                opacity: 0.95;
+            }
+
+            80% {
+                opacity: 0.9;
+            }
+
+            100% {
+                opacity: 0.97;
+            }
+        }
+
+        .crt-flicker {
+            animation: flicker 0.15s infinite;
+        }
+
+        /* Glitch Text Effect */
+        .glitch {
+            position: relative;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+            .glitch::before,
+            .glitch::after {
+                content: attr(data-text);
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+            }
+
+            .glitch::before {
+                left: 2px;
+                text-shadow: -1px 0 var(--neon-red);
+                clip: rect(24px, 550px, 90px, 0);
+                animation: glitch-anim-2 3s infinite linear alternate-reverse;
+            }
+
+            .glitch::after {
+                left: -2px;
+                text-shadow: -1px 0 var(--neon-cyan);
+                clip: rect(85px, 550px, 140px, 0);
+                animation: glitch-anim 2.5s infinite linear alternate-reverse;
+            }
+
+        @keyframes glitch-anim {
+            0% {
+                clip: rect(14px, 9999px, 121px, 0);
+            }
+
+            20% {
+                clip: rect(89px, 9999px, 94px, 0);
+            }
+
+            40% {
+                clip: rect(22px, 9999px, 16px, 0);
+            }
+
+            60% {
+                clip: rect(67px, 9999px, 10px, 0);
+            }
+
+            80% {
+                clip: rect(12px, 9999px, 89px, 0);
+            }
+
+            100% {
+                clip: rect(56px, 9999px, 45px, 0);
+            }
+        }
+
+        @keyframes glitch-anim-2 {
+            0% {
+                clip: rect(65px, 9999px, 100px, 0);
+            }
+
+            20% {
+                clip: rect(12px, 9999px, 5px, 0);
+            }
+
+            40% {
+                clip: rect(87px, 9999px, 32px, 0);
+            }
+
+            60% {
+                clip: rect(10px, 9999px, 80px, 0);
+            }
+
+            80% {
+                clip: rect(45px, 9999px, 12px, 0);
+            }
+
+            100% {
+                clip: rect(23px, 9999px, 67px, 0);
+            }
+        }
+
+        /* Floating Particles */
+        #canvas-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        /* Content Container */
+        .content-box {
+            position: relative;
+            z-index: 10;
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.1), inset 0 0 20px rgba(0, 243, 255, 0.05);
+            padding: 3rem;
+            max-width: 600px;
+            width: 90%;
+            transform: perspective(1000px) rotateX(2deg);
+            transition: all 0.3s ease;
+        }
+
+            .content-box:hover {
+                box-shadow: 0 0 40px rgba(0, 243, 255, 0.2), inset 0 0 30px rgba(0, 243, 255, 0.1);
+                border-color: var(--neon-cyan);
+            }
+
+        .corner-decoration {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--neon-cyan);
+            transition: all 0.3s ease;
+        }
+
+        .top-left {
+            top: -2px;
+            left: -2px;
+            border-right: 0;
+            border-bottom: 0;
+        }
+
+        .top-right {
+            top: -2px;
+            right: -2px;
+            border-left: 0;
+            border-bottom: 0;
+        }
+
+        .bottom-left {
+            bottom: -2px;
+            left: -2px;
+            border-right: 0;
+            border-top: 0;
+        }
+
+        .bottom-right {
+            bottom: -2px;
+            right: -2px;
+            border-left: 0;
+            border-top: 0;
+        }
+
+        .content-box:hover .corner-decoration {
+            width: 30px;
+            height: 30px;
+            border-color: var(--neon-red);
+        }
+
+        .warning-badge {
+            display: inline-block;
+            background: var(--neon-red);
+            color: #000;
+            padding: 0.2rem 0.5rem;
+            font-weight: bold;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            animation: pulse-red 2s infinite;
+        }
+
+        @keyframes pulse-red {
+            0% {
+                box-shadow: 0 0 0 0 rgba(255, 0, 60, 0.7);
+            }
+
+            70% {
+                box-shadow: 0 0 0 10px rgba(255, 0, 60, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 0, 60, 0);
+            }
+        }
+
+        .typing-cursor::after {
+            content: '█';
+            animation: blink 1s step-end infinite;
+            color: var(--neon-cyan);
+            margin-left: 2px;
+        }
+
+        @keyframes blink {
+            0%, 100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+        }
+
+        .btn-glitch {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+            .btn-glitch:hover {
+                background: var(--neon-cyan);
+                color: #000;
+                box-shadow: 0 0 20px var(--neon-cyan);
+            }
+
+            .btn-glitch::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+                transition: 0.5s;
+            }
+
+            .btn-glitch:hover::before {
+                left: 100%;
+            }
+    </style>
+</head>
+<body class="crt-flicker">
+
+    <!-- Background Canvas for Particles -->
+    <div id="canvas-container">
+        <canvas id="bgCanvas"></canvas>
+    </div>
+
+    <!-- CRT Scanlines Overlay -->
+    <div class="scanlines"></div>
+
+    <!-- Main Content -->
+    <div class="content-box text-center">
+        <div class="corner-decoration top-left"></div>
+        <div class="corner-decoration top-right"></div>
+        <div class="corner-decoration bottom-left"></div>
+        <div class="corner-decoration bottom-right"></div>
+
+        <div class="mb-6">
+            <span class="warning-badge">SECURITY BREACH DETECTED</span>
+        </div>
+
+        <h1 class="text-4xl md:text-6xl font-bold mb-2 glitch" data-text="MCT_APIs">MCT_APIs</h1>
+        <div class="h-px w-full bg-gradient-to-r from-transparent via-[var(--neon-cyan)] to-transparent my-4"></div>
+
+        <div class="text-left space-y-4 font-mono text-sm md:text-base opacity-90">
+            <p class="typing-cursor" id="typewriter-text"></p>
+        </div>
+
+        <div class="mt-8 flex justify-center gap-4">
+            <button onclick="simulateReturn()" class="btn-glitch border border-[var(--neon-cyan)] text-[var(--neon-cyan)] px-6 py-2 text-sm tracking-widest uppercase font-bold bg-transparent cursor-pointer">
+                [ Return to Safe Zone ]
+            </button>
+        </div>
+
+        <div class="mt-6 text-xs text-gray-500 flex justify-between">
+            <span>ERR_CODE: 0x5F3759DF</span>
+            <span id="clock">00:00:00</span>
+        </div>
+    </div>
+
+    <script>// 1. Typewriter Effect
+        const text = "警告：您正在访问受限的 MCT_APIs 核心接口节点。\n\n未授权访问将被记录并追踪。\n\n>>> 您不应该出现在这里。";
+        const typeWriterElement = document.getElementById('typewriter-text');
+        let i = 0;
+
+        function typeWriter() {
+            if (i < text.length) {
+                if (text.charAt(i) === '\n') {
+                    typeWriterElement.innerHTML += '<br>';
+                } else {
+                    typeWriterElement.innerHTML += text.charAt(i);
+                }
+                i++;
+                // Random typing speed for realism
+                setTimeout(typeWriter, Math.random() * 50 + 30);
+            }
+        }
+
+        // Start typing after a short delay
+        setTimeout(typeWriter, 800);
+
+        // 2. Digital Clock
+        function updateClock() {
+            const now = new Date();
+            const timeString = now.toISOString().split('T')[1].split('.')[0];
+            document.getElementById('clock').innerText = timeString;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // 3. Particle Background Animation
+        const canvas = document.getElementById('bgCanvas');
+        const ctx = canvas.getContext('2d');
+
+        let width, height;
+        let particles = [];
+
+        function resize() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+        }
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.size = Math.random() * 2;
+                this.color = Math.random() > 0.9 ? '#ff003c' : '#00f3ff'; // Mostly cyan, some red
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const particleCount = Math.min(window.innerWidth / 10, 100); // Responsive count
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animate() {
+            ctx.fillStyle = 'rgba(5, 5, 5, 0.1)'; // Trail effect
+            ctx.fillRect(0, 0, width, height);
+
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+
+            // Draw connections
+            ctx.strokeStyle = 'rgba(0, 243, 255, 0.05)';
+            ctx.lineWidth = 1;
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < 150) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', () => {
+            resize();
+            initParticles();
+        });
+
+        resize();
+        initParticles();
+        animate();
+
+        // 4. Interaction
+        function simulateReturn() {
+            const btn = document.querySelector('.btn-glitch');
+            btn.innerText = "[ REROUTING... ]";
+            btn.style.borderColor = "#ff003c";
+            btn.style.color = "#ff003c";
+
+            // Visual glitch effect on body
+            document.body.style.filter = "hue-rotate(90deg) blur(2px)";
+            setTimeout(() => {
+                document.body.style.filter = "none";
+                // In a real app, this would redirect. Here we just log.
+                console.log("Redirecting to safety...");
+            }, 500);
+        }
+
+        // Mouse move parallax effect for the box
+        document.addEventListener('mousemove', (e) => {
+            const box = document.querySelector('.content-box');
+            const x = (window.innerWidth - e.pageX * 2) / 100;
+            const y = (window.innerHeight - e.pageY * 2) / 100;
+
+            box.style.transform = `perspective(1000px) rotateX(${y}deg) rotateY(${x}deg)`;
+        });</script>
+</body>
+</html>
