@@ -1,4 +1,53 @@
-114514 0.0.7API
-测试数据
+更新日志界面支持 Markdown 解析需要添加 Markdown 渲染库。以下是更新日志内容（Markdown 格式）：
 
-测试数据3
+---
+
+## 版本号: 0.0.6.109 → 0.0.7Pre01
+
+### ✨ New 新增
+- **全新 Avalonia UI 框架** - 跨平台支持 Windows/Linux/macOS
+- **Material Design 3 设计** - 现代化界面风格
+- **主题系统** - 支持深色/浅色模式切换
+- **主题色自定义** - 可自定义应用强调色
+- **性能模式** - 内存优化模式，减少资源占用
+- **跨平台自动更新** - 支持 Windows、Linux、macOS 自动更新
+- **Toast 通知系统** - 类似 Android 的轻量级通知
+- **P2P 日志实时显示** - 实时查看联机日志
+- **版本支持检查** - 自动检测版本是否在支持列表内
+
+### 🔧 Fix 修复
+- **清除缓存按钮路径问题** - 修复 Windows 下双斜杠问题
+- **重置配置按钮路径问题** - 统一使用 ConfigService 获取路径
+- **更新检查 405 错误** - 添加 User-Agent 请求头
+- **更新日志中文乱码** - 使用 UTF-8 编码读取
+- **性能模式自动弹出通知** - 只在用户手动切换时显示
+- **多平台路径适配** - 统一使用 Path.GetTempPath()
+
+### 📝 Change 修改
+- **检查更新频率限制** - 从每分钟 4 次调整为 10 次
+- **清除缓存逻辑** - 添加异常处理，避免单个文件删除失败导致整体失败
+- **重置配置逻辑** - 使用 ConfigService 获取配置文件路径
+- **添加到 Defender 白名单** - 添加 Windows 平台检测
+
+### 🔄 Update 更新
+- **.NET 版本** - 升级到 .NET 8.0
+- **UI 组件库** - 使用 Material.Icons.Avalonia
+- **版本号** - 0.0.7Pre01 (代号: 赠予雪中的你)
+
+### ⚡ Opt 优化
+- **代码结构** - 采用 MVVM 架构
+- **配置管理** - 使用 ConfigService 统一管理
+- **页面缓存** - 添加 PageCacheService 优化内存
+- **主题服务** - 使用 ThemeService 统一管理主题
+
+### 🗑️ Remove 移除
+- **WinForm 旧版代码** - 迁移至 Avalonia
+- **回声洞功能** - 已于 2025.3.15 下线
+
+---
+
+关于 Markdown 解析，你需要：
+1. 添加 Markdown 渲染库（如 `Avalonia.Markdown` 或 `Markdig`）
+2. 修改 UpdatePage 的更新日志显示控件
+
+需要我帮你实现 Markdown 解析功能吗？
