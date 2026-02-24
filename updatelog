@@ -1,111 +1,84 @@
-亲爱的用户,0.0.7Pre01 已下发更新
-本次更新框架支持"Windows+Linux+Mac"
+0.0.7Pre01 已下发更新
+本次更新带来了全新的0.0.7系列,全新动画效果,全新UI全新框架
+本次更新支持以下系统
+Windows | Mac | Linux
+⚠当前完全适配全平台的联机模式仅有Link模式,传统P2P模式敬请期待
+详细(其实不止这么点)更新日志
 版本号: 0.0.6.109 → 0.0.7Pre01
-更新日志:
+🆕 新增功能
 🆕 引入 Avalonia UI 跨平台 GUI 框架，基于 XAML 的声明式 UI 实现，完全替代 WinForm 传统窗体模型，达成 Windows/Linux/macOS 三端原生运行时兼容
-
 🆕 集成 Material Design 3 设计规范组件库，实现动态色彩系统（Dynamic Color）与表面变体层级（Surface Roles），支持深/浅色主题自适应切换
-
-🆕 实现主题色自定义引擎，支持强调色（Primary/Secondary/Tertiary）HCT 色彩空间选取与色度/明度混色浓度参数化调节
-
-🆕 引入性能优化模式（Performance Mode），通过禁用视图模型缓存池（ViewModel Cache Pool）与降低 GC 内存监控采样频率实现资源占用最小化
-
-🆕 构建跨平台 OTA（Over-The-Air）自动更新分发系统，支持 x86/x64/ARM64 多目标架构 ABI 识别与差异化增量更新
-
-🆕 实现多通道更新分发策略（Release Channel Management），提供 Stable/Beta/Nightly 三级发布渠道及基于设备指纹的白名单准入控制
-
-🆕 实现更新日志 UTF-8 编码解码器，集成 BOM（Byte Order Mark）自动检测与 CJK 字符集（中日韩统一表意文字）乱码纠正机制
-
-🆕 集成 360DNS 网络优化工具链，实现一键下载执行与文件完整性校验（MD5 Hash Verification）
-
-🆕 实现人机验证机制（CAPTCHA），基于伪随机数生成器（PRNG）的数学运算挑战-响应模式防止日志上传接口滥用
-
-🆕 集成云日志聚合服务，基于 mclo.gs RESTful API 实现多日志文件打包上传与持久化存储
-
-🆕 实现动态提示码系统（Dynamic Promo Code），支持固定值/每小时轮换/每日轮换/永久有效四种 TTL 刷新策略
-
-🆕 实现 P2P 端口自定义配置，允许覆盖默认 NAT 穿透端口（UDP 打洞/STUN 协议端口）
-
-🆕 实现 Relay 中继服务器自定义配置，作为 NAT 穿透失败时的 TURN 协议备用 fallback 方案
-
-🆕 实现 Windows Defender 安全中心白名单自动化注入，通过 WMI 调用排除路径配置
-
-🆕 实现运行时平台架构自动探测，基于 RuntimeInformation.OSArchitecture 与 OperatingSystem 平台抽象层实现
-
-🆕 实现页面缓存服务（PageCacheService），基于 ConcurrentDictionary 实现视图实例对象池复用机制
-
-🆕 实现内存监控服务（MemoryMonitorService），基于定时器轮询检测工作集（Working Set）并触发条件化垃圾回收（Conditional GC）
-
-🆕 实现导航服务（NavigationService），基于路由表（Route Table）实现视图导航与返回栈（Back Stack）生命周期管理
-
-🆕 实现主题服务（ThemeService），统一管理主题状态机（Theme State Machine）及系统主题变更事件监听（OS Theme Change Notification）
-
-🆕 实现版本检查服务（VersionCheckService），封装语义化版本控制（Semantic Versioning）比对算法
-
-🆕 实现 P2P 状态服务（P2PStateService），集中管理连接状态机（Connection State Machine）与结构化日志输出
-
-🆕 实现 P2P 进程服务（P2PProcessService），封装 OpenP2P 核心进程生命周期管理（启动/停止/异常监控/自动重启）
-
-🆕 实现云服务公告面板，支持远程 JSON Schema 配置动态反序列化及换行符标准化解析（CRLF/LF 统一）
-
-🆕 实现交互式模态对话框（InteractiveModal），基于异步任务（Task/Async）实现用户输入捕获与回调处理
-
-🆕 实现 Toast 通知系统，基于渲染线程的透明度渐变动画（Opacity Tweening）实现轻量级消息提示
-
-🆕 实现动态问候语生成器，基于 DateTime.Now 时间切片算法生成时段化问候语（上午/中午/下午/晚上）
-
-🆕 实现更新日志分页渲染引擎，支持固定行数（Lines Per Page）分页浏览与虚拟化滚动
-
-🆕 实现背景图片自定义，支持本地 PNG 位图资源加载与 GPU 加速渲染
-
-🆕 实现动态背景色应用系统，支持对 ControlTemplate 内按钮控件批量应用主题色染色（Tint）
-
+🆕 主题色自定义引擎，支持强调色（Primary/Secondary/Tertiary）HCT 色彩空间选取与色度/明度混色浓度参数化调节
+🆕 性能优化模式（Performance Mode），通过限制页面缓存池大小（2页）与降低 GC 内存监控采样频率实现资源占用最小化
+🆕 跨平台 OTA（Over-The-Air）自动更新分发系统，支持 x86/x64/ARM64 多目标架构 ABI 识别与差异化增量更新
+🆕 多通道更新分发策略（Release Channel Management），提供 Stable/Beta/Nightly 三级发布渠道及基于设备指纹的白名单准入控制
+🆕 更新日志 UTF-8 编码解码器，集成 BOM（Byte Order Mark）自动检测与 CJK 字符集（中日韩统一表意文字）乱码纠正机制
+🆕 云日志聚合服务，基于开源项目 MCZLF/FastShareYourLog 与 mclo.gs
+🆕 Windows Defender 安全中心白名单自动化注入，通过 WMI 调用排除路径配置
+🆕 运行时平台架构自动探测服务（PlatformService），基于 RuntimeInformation.OSArchitecture 与 OperatingSystem 平台抽象层实现
+🆕 页面缓存服务（PageCacheService），基于 LinkedList + Dictionary 实现 LRU（最近最少使用）缓存策略，支持视图实例对象池复用机制
+🆕 内存监控服务（MemoryMonitorService），基于定时器轮询检测工作集（Working Set）并触发条件化垃圾回收（Conditional GC），支持 Windows/Linux/macOS 三端内存信息获取
+🆕 导航服务（NavigationService），基于路由表（Route Table）实现视图导航与返回栈（Back Stack）生命周期管理
+🆕 主题服务（ThemeService），统一管理主题状态机（Theme State Machine）及系统主题变更事件监听（OS Theme Change Notification）
+🆕 版本检查服务（VersionCheckService），封装语义化版本控制（Semantic Versioning）比对算法
+🆕 P2P 状态服务（P2PStateService），集中管理连接状态机（Connection State Machine）与结构化日志输出
+🆕 P2P 进程服务（P2PProcessService），封装 OpenP2P 核心进程生命周期管理（启动/停止/异常监控/自动重启）
+🆕 管理员权限检测服务（AdminService），支持 Windows 平台 UAC 权限检测与自动提权重启
+🆕 云服务公告面板（PanelAlert），支持远程 JSON Schema 配置动态反序列化及换行符标准化解析（CRLF/LF 统一）
+🆕 Material Design 3 交互式模态对话框（MD3InputDialog/MD3MessageDialog），基于异步任务（Task/Async）实现用户输入捕获与回调处理
+🆕 Toast 通知系统，基于渲染线程的透明度渐变动画（Opacity Tweening）实现轻量级消息提示
+🆕 动态问候语生成器，基于 DateTime.Now 时间切片算法生成时段化问候语（上午/中午/下午/晚上）
+🆕 更新日志分页渲染引擎，支持固定行数（Lines Per Page）分页浏览与虚拟化滚动
+🆕 支持 GPU 加速渲染
+🆕 动态背景色应用系统，支持对 ControlTemplate 内按钮控件批量应用主题色染色（Tint）
+🆕 浮动停止按钮控件（FloatingStopButton），支持 P2P 核心运行状态可视化与一键停止操作
+🆕 颜色选择器按钮控件（ColorPickerButton），集成 RGB 滑块与预设颜色网格的弹窗式颜色选择器
+🆕 颜色转画刷转换器（ColorToBrushConverter），支持 XAML 绑定层面的颜色与画刷自动转换
+🆕 布尔值转换器组（BoolToOpacityConverter/BoolToStringConverter/IntToBoolConverter），支持视图状态与可视化属性的双向绑定
+🆕 徽章状态转换器（BadgeStateConverters），支持 P2P 运行状态与徽章样式的自动映射
+🆕 剪贴板辅助服务（ClipboardHelper），封装 Avalonia 剪贴板 API 的跨平台统一调用接口
+🆕 首页视图模型（HomePageViewModel），基于 CommunityToolkit.Mvvm 的 ObservableProperty 属性变更通知机制
+🔧 修复问题
 🔧 修复 清除缓存功能 Windows 平台路径拼接异常（双斜杠转义问题）
-
 🔧 修复 重置配置功能路径不一致导致配置文件删除失败（Path Normalization 问题）
-
 🔧 修复 更新检查 HTTP 405 Method Not Allowed 错误（缺失 User-Agent 请求头）
-
 🔧 修复 更新日志中文乱码（编码处理迁移至 UTF-8 Encoding）
-
 🔧 修复 性能模式开关初始化时触发不必要的属性变更通知（PropertyChanged Notification）
-
 🔧 修复 多平台临时目录路径获取不一致（统一使用 Path.GetTempPath 标准 API）
-
 🔧 修复 Gitee API 请求被拒绝（添加 User-Agent 请求头标识）
-
+🔧 修复 AntdUI 主题切换时部分控件渲染异常问题
+🔧 修复 WinForm 窗体缩放时 DPI 感知导致的模糊问题
+🔧 修复 敏感词检测 API 旧版本兼容性问题（迁移至 uapis.cn v1 版本）
+⬆️ 升级变更
+⬆️ 升级 全新重构,重构底层基础服务,代码完全重写
 ⬆️ 升级 底层运行时从 .NET Framework 4.7.2 迁移至 .NET 8.0 LTS（长期支持版本）
-
 ⬆️ 迁移 UI 组件库从 AntdUI + MaterialSkin 重构至 Avalonia + Material Design 3
-
 ⬆️ 升级 P2P 核心组件（OpenP2P）至最新稳定版本
-
 ⬆️ 升级 敏感词检测 API 至 uapis.cn v1 版本（协议迁移至 POST + JSON Payload）
-
 ⬆️ 更新 版本检测 API 端点至新域名 api.mct.mczlf.loft.games
-
+⬆️ 升级 JSON 序列化库从 Newtonsoft.Json 迁移至 System.Text.Json（原生性能优化）
+⬆️ 升级 项目结构从传统 WinForm 代码后置模式迁移至 MVVM 架构模式
+⬆️ 升级 异步编程模型从 async/void 迁移至 async/Task 最佳实践
+⚡ 性能优化
 ⚡ 优化 更新检查防重复点击限流策略，从每分钟 4 次 QPS 调整至 10 次 QPS
-
 ⚡ 优化 应用启动流程，采用异步初始化（Async Initialization）减少 UI 线程阻塞
-
 ⚡ 优化 内存管理机制，引入对象池（Object Pooling）降低空闲资源占用
-
 ⚡ 优化 网络请求超时统一配置为 30 秒（Socket Timeout）
-
 ⚡ 优化 文件下载进度显示精度，采用字节级（Byte-level）进度计算
-
 ⚡ 优化 多线程日志写入，采用异步追加模式（Async Append）与队列缓冲
-
 ⚡ 优化 跨平台路径处理，统一使用 .NET 标准文件系统抽象 API
-
 ⚡ 优化 异常处理机制，增强堆栈跟踪（Stack Trace）信息可读性
-
-🗑️ 移除 WinForm 窗体框架依赖
-
-🗑️ 移除 AntdUI 第三方组件库
-
-🗑️ 移除 MaterialSkin 控件库
-
+⚡ 优化 页面切换动画流畅度，基于 Avalonia 渲染管线实现硬件加速
+⚡ 优化 主题切换响应速度，采用资源字典热重载机制
+⚡ 优化 启动时间，通过延迟加载非关键服务减少初始化耗时
+🗑️ 移除内容
+🗑️ 移除 WinForm 窗体框架依赖（Form1/Settings/P2PMode/LinkMode/Help/Update/Theme/PanelAlert）
+🗑️ 移除 AntdUI 第三方组件库（AntdUI.Window/Notification/Modal/Message/Preview）
+🗑️ 移除 MaterialSkin 控件库（MaterialSingleLineTextField/MaterialFlatButton）
 🗑️ 移除 Newtonsoft.Json 冗余 NuGet 包引用（迁移至 System.Text.Json）
-
 🗑️ 移除 回声洞功能模块（服务下线于 2025.3.15）
+🗑️ 移除 InteractiveModal 旧版交互式弹窗（替换为 MD3InputDialog）
+🗑️ 移除 全局缓存字典 GlobalCache（替换为 PageCacheService）
+🗑️ 移除 内测模式硬编码设备名列表（迁移至远程配置）
+-------------------------------------------
+太多了可能忘记了,感觉不止这么点
