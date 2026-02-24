@@ -1,53 +1,111 @@
-更新日志界面支持 Markdown 解析需要添加 Markdown 渲染库。以下是更新日志内容（Markdown 格式）：
+亲爱的用户,0.0.7Pre01 已下发更新
+本次更新框架支持"Windows+Linux+Mac"
+版本号: 0.0.6.109 → 0.0.7Pre01
+更新日志:
+🆕 引入 Avalonia UI 跨平台 GUI 框架，基于 XAML 的声明式 UI 实现，完全替代 WinForm 传统窗体模型，达成 Windows/Linux/macOS 三端原生运行时兼容
 
----
+🆕 集成 Material Design 3 设计规范组件库，实现动态色彩系统（Dynamic Color）与表面变体层级（Surface Roles），支持深/浅色主题自适应切换
 
-## 版本号: 0.0.6.109 → 0.0.7Pre01
+🆕 实现主题色自定义引擎，支持强调色（Primary/Secondary/Tertiary）HCT 色彩空间选取与色度/明度混色浓度参数化调节
 
-### ✨ New 新增
-- **全新 Avalonia UI 框架** - 跨平台支持 Windows/Linux/macOS
-- **Material Design 3 设计** - 现代化界面风格
-- **主题系统** - 支持深色/浅色模式切换
-- **主题色自定义** - 可自定义应用强调色
-- **性能模式** - 内存优化模式，减少资源占用
-- **跨平台自动更新** - 支持 Windows、Linux、macOS 自动更新
-- **Toast 通知系统** - 类似 Android 的轻量级通知
-- **P2P 日志实时显示** - 实时查看联机日志
-- **版本支持检查** - 自动检测版本是否在支持列表内
+🆕 引入性能优化模式（Performance Mode），通过禁用视图模型缓存池（ViewModel Cache Pool）与降低 GC 内存监控采样频率实现资源占用最小化
 
-### 🔧 Fix 修复
-- **清除缓存按钮路径问题** - 修复 Windows 下双斜杠问题
-- **重置配置按钮路径问题** - 统一使用 ConfigService 获取路径
-- **更新检查 405 错误** - 添加 User-Agent 请求头
-- **更新日志中文乱码** - 使用 UTF-8 编码读取
-- **性能模式自动弹出通知** - 只在用户手动切换时显示
-- **多平台路径适配** - 统一使用 Path.GetTempPath()
+🆕 构建跨平台 OTA（Over-The-Air）自动更新分发系统，支持 x86/x64/ARM64 多目标架构 ABI 识别与差异化增量更新
 
-### 📝 Change 修改
-- **检查更新频率限制** - 从每分钟 4 次调整为 10 次
-- **清除缓存逻辑** - 添加异常处理，避免单个文件删除失败导致整体失败
-- **重置配置逻辑** - 使用 ConfigService 获取配置文件路径
-- **添加到 Defender 白名单** - 添加 Windows 平台检测
+🆕 实现多通道更新分发策略（Release Channel Management），提供 Stable/Beta/Nightly 三级发布渠道及基于设备指纹的白名单准入控制
 
-### 🔄 Update 更新
-- **.NET 版本** - 升级到 .NET 8.0
-- **UI 组件库** - 使用 Material.Icons.Avalonia
-- **版本号** - 0.0.7Pre01 (代号: 赠予雪中的你)
+🆕 实现更新日志 UTF-8 编码解码器，集成 BOM（Byte Order Mark）自动检测与 CJK 字符集（中日韩统一表意文字）乱码纠正机制
 
-### ⚡ Opt 优化
-- **代码结构** - 采用 MVVM 架构
-- **配置管理** - 使用 ConfigService 统一管理
-- **页面缓存** - 添加 PageCacheService 优化内存
-- **主题服务** - 使用 ThemeService 统一管理主题
+🆕 集成 360DNS 网络优化工具链，实现一键下载执行与文件完整性校验（MD5 Hash Verification）
 
-### 🗑️ Remove 移除
-- **WinForm 旧版代码** - 迁移至 Avalonia
-- **回声洞功能** - 已于 2025.3.15 下线
+🆕 实现人机验证机制（CAPTCHA），基于伪随机数生成器（PRNG）的数学运算挑战-响应模式防止日志上传接口滥用
 
----
+🆕 集成云日志聚合服务，基于 mclo.gs RESTful API 实现多日志文件打包上传与持久化存储
 
-关于 Markdown 解析，你需要：
-1. 添加 Markdown 渲染库（如 `Avalonia.Markdown` 或 `Markdig`）
-2. 修改 UpdatePage 的更新日志显示控件
+🆕 实现动态提示码系统（Dynamic Promo Code），支持固定值/每小时轮换/每日轮换/永久有效四种 TTL 刷新策略
 
-需要我帮你实现 Markdown 解析功能吗？
+🆕 实现 P2P 端口自定义配置，允许覆盖默认 NAT 穿透端口（UDP 打洞/STUN 协议端口）
+
+🆕 实现 Relay 中继服务器自定义配置，作为 NAT 穿透失败时的 TURN 协议备用 fallback 方案
+
+🆕 实现 Windows Defender 安全中心白名单自动化注入，通过 WMI 调用排除路径配置
+
+🆕 实现运行时平台架构自动探测，基于 RuntimeInformation.OSArchitecture 与 OperatingSystem 平台抽象层实现
+
+🆕 实现页面缓存服务（PageCacheService），基于 ConcurrentDictionary 实现视图实例对象池复用机制
+
+🆕 实现内存监控服务（MemoryMonitorService），基于定时器轮询检测工作集（Working Set）并触发条件化垃圾回收（Conditional GC）
+
+🆕 实现导航服务（NavigationService），基于路由表（Route Table）实现视图导航与返回栈（Back Stack）生命周期管理
+
+🆕 实现主题服务（ThemeService），统一管理主题状态机（Theme State Machine）及系统主题变更事件监听（OS Theme Change Notification）
+
+🆕 实现版本检查服务（VersionCheckService），封装语义化版本控制（Semantic Versioning）比对算法
+
+🆕 实现 P2P 状态服务（P2PStateService），集中管理连接状态机（Connection State Machine）与结构化日志输出
+
+🆕 实现 P2P 进程服务（P2PProcessService），封装 OpenP2P 核心进程生命周期管理（启动/停止/异常监控/自动重启）
+
+🆕 实现云服务公告面板，支持远程 JSON Schema 配置动态反序列化及换行符标准化解析（CRLF/LF 统一）
+
+🆕 实现交互式模态对话框（InteractiveModal），基于异步任务（Task/Async）实现用户输入捕获与回调处理
+
+🆕 实现 Toast 通知系统，基于渲染线程的透明度渐变动画（Opacity Tweening）实现轻量级消息提示
+
+🆕 实现动态问候语生成器，基于 DateTime.Now 时间切片算法生成时段化问候语（上午/中午/下午/晚上）
+
+🆕 实现更新日志分页渲染引擎，支持固定行数（Lines Per Page）分页浏览与虚拟化滚动
+
+🆕 实现背景图片自定义，支持本地 PNG 位图资源加载与 GPU 加速渲染
+
+🆕 实现动态背景色应用系统，支持对 ControlTemplate 内按钮控件批量应用主题色染色（Tint）
+
+🔧 修复 清除缓存功能 Windows 平台路径拼接异常（双斜杠转义问题）
+
+🔧 修复 重置配置功能路径不一致导致配置文件删除失败（Path Normalization 问题）
+
+🔧 修复 更新检查 HTTP 405 Method Not Allowed 错误（缺失 User-Agent 请求头）
+
+🔧 修复 更新日志中文乱码（编码处理迁移至 UTF-8 Encoding）
+
+🔧 修复 性能模式开关初始化时触发不必要的属性变更通知（PropertyChanged Notification）
+
+🔧 修复 多平台临时目录路径获取不一致（统一使用 Path.GetTempPath 标准 API）
+
+🔧 修复 Gitee API 请求被拒绝（添加 User-Agent 请求头标识）
+
+⬆️ 升级 底层运行时从 .NET Framework 4.7.2 迁移至 .NET 8.0 LTS（长期支持版本）
+
+⬆️ 迁移 UI 组件库从 AntdUI + MaterialSkin 重构至 Avalonia + Material Design 3
+
+⬆️ 升级 P2P 核心组件（OpenP2P）至最新稳定版本
+
+⬆️ 升级 敏感词检测 API 至 uapis.cn v1 版本（协议迁移至 POST + JSON Payload）
+
+⬆️ 更新 版本检测 API 端点至新域名 api.mct.mczlf.loft.games
+
+⚡ 优化 更新检查防重复点击限流策略，从每分钟 4 次 QPS 调整至 10 次 QPS
+
+⚡ 优化 应用启动流程，采用异步初始化（Async Initialization）减少 UI 线程阻塞
+
+⚡ 优化 内存管理机制，引入对象池（Object Pooling）降低空闲资源占用
+
+⚡ 优化 网络请求超时统一配置为 30 秒（Socket Timeout）
+
+⚡ 优化 文件下载进度显示精度，采用字节级（Byte-level）进度计算
+
+⚡ 优化 多线程日志写入，采用异步追加模式（Async Append）与队列缓冲
+
+⚡ 优化 跨平台路径处理，统一使用 .NET 标准文件系统抽象 API
+
+⚡ 优化 异常处理机制，增强堆栈跟踪（Stack Trace）信息可读性
+
+🗑️ 移除 WinForm 窗体框架依赖
+
+🗑️ 移除 AntdUI 第三方组件库
+
+🗑️ 移除 MaterialSkin 控件库
+
+🗑️ 移除 Newtonsoft.Json 冗余 NuGet 包引用（迁移至 System.Text.Json）
+
+🗑️ 移除 回声洞功能模块（服务下线于 2025.3.15）
