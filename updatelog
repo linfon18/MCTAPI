@@ -4,7 +4,12 @@
 Windows | Mac | Linux
 ⚠当前完全适配全平台的联机模式仅有Link模式,传统P2P模式敬请期待
 详细(其实不止这么点)更新日志
-版本号: 0.0.6.109 → 0.0.7Pre01
+版本号:0.0.7Pre01 → 0.0.7Pre01(SP1) OnlyWin_X64
+🆕 新增 一键检测当前网络环境 并给出优化建议（测试）
+🆕 优化 支持调色板 RGB值 手动修改输入，并同步更新预览
+🆕 优化 新增各功能平台支持情Label展示
+🔧 修复 修复部分情况下可能无法调用GPU加速功能
+版本号: 0.0.6.109 → 0.0.7Pre01 Win/Linux/Mac
 🆕 新增功能
 🆕 引入 Avalonia UI 跨平台 GUI 框架，基于 XAML 的声明式 UI 实现，完全替代 WinForm 传统窗体模型，达成 Windows/Linux/macOS 三端原生运行时兼容
 🆕 集成 Material Design 3 设计规范组件库，实现动态色彩系统（Dynamic Color）与表面变体层级（Surface Roles），支持深/浅色主题自适应切换
